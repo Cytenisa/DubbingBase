@@ -1,0 +1,11 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+HomeController:
+    resource:
+        path: ../src/Controller/HomeController.php
+        namespace: App\Controller
+    type: attribute
