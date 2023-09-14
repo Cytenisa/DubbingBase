@@ -20,11 +20,6 @@ final class Version20230912094535 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SEQUENCE account_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE dubbing_movie_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE dubbing_serie_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE locale_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE voice_actor_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE account (id SERIAL NOT NULL, ac_login VARCHAR(255) NOT NULL, ac_idtrakt VARCHAR(255) DEFAULT NULL, ac_pwd VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE dubbing_movie (id SERIAL NOT NULL, id_lc_code_id INT DEFAULT NULL, id_vaidactor_id INT DEFAULT NULL, tmdb_id_actor INT NOT NULL, tmdb_id_movie INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FD69B357DE85713D ON dubbing_movie (id_lc_code_id)');
