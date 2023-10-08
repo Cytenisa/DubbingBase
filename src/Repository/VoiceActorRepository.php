@@ -45,4 +45,24 @@ class VoiceActorRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    public function findVaActorByMovie($value): array
+    {
+        $em = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $query = 
+            'SELECT va_lastname, va_firstname, tmdb_id_actor
+            FROM voice_actor va
+            INNER JOIN dubbing_movie db
+            ON db.id_vaidactor_id = va.id
+            WHERE db.tmdb_id_movie = :value'
+        ;
+
+        $resultSet = $conn->executeQuery($query, ['value' => $value]);
+
+        return $resultSet->fetchAllAssociative();
+    }
+
 }
