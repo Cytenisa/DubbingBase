@@ -52,12 +52,60 @@ class VoiceActorRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $conn = $this->getEntityManager()->getConnection();
 
-        $query = 
+        $query =
             'SELECT va_lastname, va_firstname, tmdb_id_actor
             FROM voice_actor va
             INNER JOIN dubbing_movie db
             ON db.id_vaidactor_id = va.id
             WHERE db.tmdb_id_movie = :value'
+        ;
+
+        $resultSet = $conn->executeQuery($query, ['value' => $value]);
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function findById($value): array
+    {
+        $em = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $query =
+            'SELECT va_lastname, va_firstname, va_birthdate, va_nationality
+            FROM voice_actor va
+            WHERE id = :value'
+        ;
+
+        $resultSet = $conn->executeQuery($query, ['value' => $value]);
+
+        return $resultSet->fetchAssociative();
+    }
+
+    public function findMovies($value): array
+    {
+        $em = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $query =
+            'SELECT tmdb_id_movie
+            FROM dubbing_movie dm
+            WHERE dm.id_vaidactor_id = :value'
+        ;
+
+        $resultSet = $conn->executeQuery($query, ['value' => $value]);
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function findShows($value): array
+    {
+        $em = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $query =
+            'SELECT tmdb_id_serie
+            FROM dubbing_serie ds
+            WHERE ds.id_vaidactor_id = :value'
         ;
 
         $resultSet = $conn->executeQuery($query, ['value' => $value]);

@@ -61,6 +61,16 @@ class TmdbService
         return json_decode($response->getBody());
     }
 
+    public function getMovies(array $ids) {
+        $movies = [];
+        for ($i = 0; $i < count($ids); $i++) {
+            $response = $this->getMovie($ids[$i]['tmdb_id_movie']);
+            array_push($movies, $response);
+        }
+
+        return $movies;
+    }
+
     public function getActorAndCredits(int $id) {
         $client = new Client([
             'verify' => false
