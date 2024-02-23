@@ -34,6 +34,9 @@ class VoiceActor
     #[ORM\OneToMany(mappedBy: 'voiceActor', targetEntity: DubbingMovie::class)]
     private Collection $dubbingMovie;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $va_profilePicture;
+
     public function __construct()
     {
         $this->dubbingSerie = new ArrayCollection();
@@ -149,6 +152,18 @@ class VoiceActor
                 $dubbingMovie->setVoiceActor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVaProfilePicture(): ?string
+    {
+        return $this->va_profilePicture;
+    }
+
+    public function setVaProfilePicture(string $va_profilePicture): static
+    {
+        $this->va_profilePicture = $va_profilePicture;
 
         return $this;
     }
